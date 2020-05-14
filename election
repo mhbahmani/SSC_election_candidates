@@ -1,7 +1,8 @@
 #!/bin/bash
 
 rm -f results.txt > /dev/null 2>&1
-curl https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
+
+echo "getting information ..." | pv -qL 12 && wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
 
 clear
 
@@ -9,6 +10,7 @@ i=0
 
 while IFS= read -r line
 do
+	printf "$((i + 1))- "
 	if test $i -eq 0; then
 		echo $line | cut -d '>' -f 2 | cut -d '<' -f 1
 	else
