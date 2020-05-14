@@ -1,0 +1,20 @@
+#!/bin/bash
+
+rm -f results.txt > /dev/null 2>&1
+curl https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
+
+clear
+
+i=0
+
+while IFS= read -r line
+do
+	if test $i -eq 0; then
+		echo $line | cut -d '>' -f 2 | cut -d '<' -f 1
+	else
+		echo $line | cut -d '<' -f 1
+	fi
+	let i+=1
+done < "results.txt"
+
+rm -f results.txt
