@@ -1,7 +1,10 @@
 #!/bin/bash
 
 touch results.txt
-echo "getting information ..." | pv -qL 12 && wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
+
+echo "getting information ..." 
+
+wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
 
 clear
 
