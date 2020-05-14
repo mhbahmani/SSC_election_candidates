@@ -1,7 +1,6 @@
 #!/bin/bash
 
-rm -f results.txt > /dev/null 2>&1
-
+touch results.txt
 echo "getting information ..." | pv -qL 12 && wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
 
 clear
