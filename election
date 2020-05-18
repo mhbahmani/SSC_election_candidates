@@ -6,8 +6,6 @@ echo "getting information ..."
 
 wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
 
-clear
-
 i=0
 
 while IFS= read -r line
