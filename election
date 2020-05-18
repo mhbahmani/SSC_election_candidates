@@ -1,22 +1,27 @@
 #!/bin/bash
 
-touch results.txt
+result_file=result.txt
+touch $result_file
 
 echo "getting information ..." 
 
-wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> results.txt
+wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> $result_file
 
-i=0
+test -s $result_file
+if test $? -eq 1; then
+	echo "Wait untill next year election :)"
+else
+	i=0
+	while IFS= read -r line
+	do
+		printf "$((i + 1))- "
+		if test $i -eq 0; then
+			echo $line | cut -d '>' -f 2 | cut -d '<' -f 1
+		else
+			echo $line | cut -d '<' -f 1
+		fi
+		let i+=1
+	done < "$result_file"
+fi
 
-while IFS= read -r line
-do
-	printf "$((i + 1))- "
-	if test $i -eq 0; then
-		echo $line | cut -d '>' -f 2 | cut -d '<' -f 1
-	else
-		echo $line | cut -d '<' -f 1
-	fi
-	let i+=1
-done < "results.txt"
-
-rm -f results.txt
+rm -f $result_file
