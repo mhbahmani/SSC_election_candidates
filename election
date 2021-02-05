@@ -5,7 +5,7 @@ touch $result_file
 
 echo "getting information ..." 
 
-wget -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی  >> $result_file
+wget --tries=2 -T 5 -q -O- https://ssc.ce.sharif.edu/election99/ | grep ورودی >> $result_file
 
 if [ -s $result_file ]; then
 	i=0
